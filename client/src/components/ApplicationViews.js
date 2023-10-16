@@ -1,24 +1,23 @@
 import { Route, Routes } from "react-router-dom";
-import Bikes from "./bikes/Bikes";
 import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-import WorkOrderList from "./workorders/WorkOrderList.js";
-import CreateWorkOrder from "./workorders/CreateWorkOrder.js";
-import UserProfileList from "./userprofiles/UserProfileList.js";
+// import WorkOrderList from "./workorders/WorkOrderList.js";
+// import CreateWorkOrder from "./workorders/CreateWorkOrder.js";
+// import UserProfileList from "./userprofiles/UserProfileList.js";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
     <Routes>
       <Route path="/">
-        <Route
+        {/* <Route
           index
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <Bikes />
+              < />
             </AuthorizedRoute>
           }
-        />
+        /> */}
         {/* <Route
           path="bikes"
           element={
@@ -27,7 +26,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         /> */}
-       <Route path="workorders">
+       {/* <Route path="workorders">
     <Route
     index
     element={
@@ -44,7 +43,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         </AuthorizedRoute>
     }
     />
-</Route>
+</Route> */}
         {/* <Route
           path="employees"
           element={
@@ -53,14 +52,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         /> */}
-         <Route
+         {/* <Route
     path="employees"
     element={
     <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
         <UserProfileList />
     </AuthorizedRoute>
     }
-/>
+/> */}
         <Route
           path="login"
           element={<Login setLoggedInUser={setLoggedInUser} />}
