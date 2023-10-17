@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LeeboysWildlife.Migrations
 {
     [DbContext(typeof(LeeboysWildlifeDbContext))]
-    [Migration("20231016193336_InitialCreate")]
+    [Migration("20231017183637_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -150,7 +150,11 @@ namespace LeeboysWildlife.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ServiceName")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -170,19 +174,22 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = 1,
-                            ServiceName = "Full Home Exclusion",
+                            Description = "A full home exclusion service by a wildlife removal company encompasses inspection, humane wildlife removal, structural repairs, and sanitation. It aims to prevent future intrusions by sealing entry points and providing homeowners with guidance on wildlife prevention. This comprehensive approach ensures the safety, cleanliness, and long-term protection of the property from unwanted wildlife.",
+                            Name = "Full Home Exclusion",
                             ServiceTypeId = 1
                         },
                         new
                         {
                             Id = 2,
-                            ServiceName = "Partial Home Exclusion",
+                            Description = "A partial home exclusion service provided by a wildlife removal company focuses on addressing specific areas or entry points where wildlife is gaining access to a property. It involves identifying and sealing these vulnerable points, along with the removal of any wildlife currently present. Unlike a full home exclusion, it's a more targeted approach, typically addressing particular areas of concern rather than the entire property.",
+                            Name = "Partial Home Exclusion",
                             ServiceTypeId = 1
                         },
                         new
                         {
                             Id = 3,
-                            ServiceName = "Wildlife Removal",
+                            Description = "Wildlife removal is a service offered by specialized companies to safely and humanely remove unwanted animals from a property. This process typically includes identifying the type of wildlife, employing appropriate trapping or removal methods, and releasing the animals back into their natural habitat or relocating them as required. The primary goal of wildlife removal is to eliminate the immediate animal intrusion without necessarily addressing preventative measures or property repairs, as done in full or partial home exclusion services.",
+                            Name = "Wildlife Removal",
                             ServiceTypeId = 2
                         });
                 });
@@ -360,7 +367,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "1281fe57-391b-48a5-9149-285a47b749ff",
+                            ConcurrencyStamp = "30697250-3e8f-4477-90e0-adfa3e4028b8",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -459,13 +466,13 @@ namespace LeeboysWildlife.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "678e1b3a-a1cf-40fc-97d5-aba4bc946752",
+                            ConcurrencyStamp = "4e6a44f1-a8c7-40db-b706-4796e17c65ca",
                             Email = "leeboyswildliferemoval@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEOrn1WVvrY+j3fWMQEhXIQWuzjiIxVfwzwTVOzBZe3U4gmP3SV79EwM2o5yUgqSlcg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIWYz5iiY142PrhyuPmfT7k4txr9qpsMt07XedjaFRVs0h/Yfp4KyPMBazB/KkAhag==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "261f50c7-f051-4229-a30f-43a0e7cf3e49",
+                            SecurityStamp = "71d25194-12d5-461f-9705-1b1eb2e3c6e2",
                             TwoFactorEnabled = false,
                             UserName = "Leeboy"
                         });

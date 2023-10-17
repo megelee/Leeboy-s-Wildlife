@@ -249,8 +249,9 @@ namespace LeeboysWildlife.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ServiceName = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     ServiceTypeId = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
                     WorkOrderId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -309,12 +310,12 @@ namespace LeeboysWildlife.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "1281fe57-391b-48a5-9149-285a47b749ff", "Admin", "admin" });
+                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "30697250-3e8f-4477-90e0-adfa3e4028b8", "Admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "678e1b3a-a1cf-40fc-97d5-aba4bc946752", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEOrn1WVvrY+j3fWMQEhXIQWuzjiIxVfwzwTVOzBZe3U4gmP3SV79EwM2o5yUgqSlcg==", null, false, "261f50c7-f051-4229-a30f-43a0e7cf3e49", false, "Leeboy" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "4e6a44f1-a8c7-40db-b706-4796e17c65ca", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEIWYz5iiY142PrhyuPmfT7k4txr9qpsMt07XedjaFRVs0h/Yfp4KyPMBazB/KkAhag==", null, false, "71d25194-12d5-461f-9705-1b1eb2e3c6e2", false, "Leeboy" });
 
             migrationBuilder.InsertData(
                 table: "Clients",
@@ -346,12 +347,12 @@ namespace LeeboysWildlife.Migrations
 
             migrationBuilder.InsertData(
                 table: "Services",
-                columns: new[] { "Id", "ServiceName", "ServiceTypeId", "WorkOrderId" },
+                columns: new[] { "Id", "Description", "Name", "ServiceTypeId", "WorkOrderId" },
                 values: new object[,]
                 {
-                    { 1, "Full Home Exclusion", 1, null },
-                    { 2, "Partial Home Exclusion", 1, null },
-                    { 3, "Wildlife Removal", 2, null }
+                    { 1, "A full home exclusion service by a wildlife removal company encompasses inspection, humane wildlife removal, structural repairs, and sanitation. It aims to prevent future intrusions by sealing entry points and providing homeowners with guidance on wildlife prevention. This comprehensive approach ensures the safety, cleanliness, and long-term protection of the property from unwanted wildlife.", "Full Home Exclusion", 1, null },
+                    { 2, "A partial home exclusion service provided by a wildlife removal company focuses on addressing specific areas or entry points where wildlife is gaining access to a property. It involves identifying and sealing these vulnerable points, along with the removal of any wildlife currently present. Unlike a full home exclusion, it's a more targeted approach, typically addressing particular areas of concern rather than the entire property.", "Partial Home Exclusion", 1, null },
+                    { 3, "Wildlife removal is a service offered by specialized companies to safely and humanely remove unwanted animals from a property. This process typically includes identifying the type of wildlife, employing appropriate trapping or removal methods, and releasing the animals back into their natural habitat or relocating them as required. The primary goal of wildlife removal is to eliminate the immediate animal intrusion without necessarily addressing preventative measures or property repairs, as done in full or partial home exclusion services.", "Wildlife Removal", 2, null }
                 });
 
             migrationBuilder.InsertData(

@@ -123,14 +123,16 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
             {
                 Id = 1,
                 ServiceTypeId = 1,
-                ServiceName = "Full Home Exclusion"
+                Name = "Full Home Exclusion",
+                Description = "A full home exclusion service by a wildlife removal company encompasses inspection, humane wildlife removal, structural repairs, and sanitation. It aims to prevent future intrusions by sealing entry points and providing homeowners with guidance on wildlife prevention. This comprehensive approach ensures the safety, cleanliness, and long-term protection of the property from unwanted wildlife."
                 
             },
             new Service
             {
                 Id = 2,
                 ServiceTypeId = 1,
-                ServiceName = "Partial Home Exclusion"
+                Name = "Partial Home Exclusion",
+                Description = "A partial home exclusion service provided by a wildlife removal company focuses on addressing specific areas or entry points where wildlife is gaining access to a property. It involves identifying and sealing these vulnerable points, along with the removal of any wildlife currently present. Unlike a full home exclusion, it's a more targeted approach, typically addressing particular areas of concern rather than the entire property."
                 
                 
                 
@@ -139,7 +141,8 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
             {
                 Id = 3,
                 ServiceTypeId = 2,
-                ServiceName = "Wildlife Removal"
+                Name = "Wildlife Removal",
+                Description = "Wildlife removal is a service offered by specialized companies to safely and humanely remove unwanted animals from a property. This process typically includes identifying the type of wildlife, employing appropriate trapping or removal methods, and releasing the animals back into their natural habitat or relocating them as required. The primary goal of wildlife removal is to eliminate the immediate animal intrusion without necessarily addressing preventative measures or property repairs, as done in full or partial home exclusion services."
                 
                 
                 
@@ -188,6 +191,11 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
                 
             }
         });
+    }
+
+    internal object Include(Func<object, object> value)
+    {
+        throw new NotImplementedException();
     }
 }
 
