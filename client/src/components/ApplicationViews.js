@@ -1,32 +1,40 @@
 import { Route, Routes } from "react-router-dom";
-import { AuthorizedRoute } from "./auth/AuthorizedRoute";
+import { AuthorizedRoute } from "./auth/AuthorizedRoute.js";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ServiceList from "./services/ServiceList.js";
-import ServiceDetails from "./services/ServiceDetails.js";
+import EmployeeList from "./employee/EmployeeList.js";
+import Employee from "./employee/Employee.js";
 
-// Your description text
 const text =
   "Leeboy's Wildlife Removal specializes in providing humane wildlife removal services. We are dedicated to safely and ethically removing wildlife, such as raccoons, squirrels, and birds, from residential and commercial properties. Our mission is to protect both your property and the well-being of the wildlife we encounter. With our experienced team, we strive to ensure a safe and harmonious coexistence between humans and wildlife.";
 
+const Home = () => {
+  return (
+    <div className="homepage">
+      <p className="text">"{text}"</p>
+    </div>
+  );
+};
+
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
-    <>
-      {/* Render your description text outside of Routes */}
-      <div className="description">
-        <p>{text}</p>
-      </div>
-
-      <Routes>
-        <Route path="/">
-          <Route path="login" element={<Login setLoggedInUser={setLoggedInUser} />} />
-          <Route path="register" element={<Register setLoggedInUser={setLoggedInUser} />} />
-          <Route path="services" element={<ServiceList />} />
-          <Route path="services/:serviceId" element={<ServiceDetails />} />
-        </Route>
-        <Route path="*" element={<p>Whoops, nothing here...</p>} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="login" element={<Login setLoggedInUser={setLoggedInUser} />} />
+      <Route path="register" element={<Register setLoggedInUser={setLoggedInUser} />} />
+      <Route path="services" element={<ServiceList />} />
+      <Route path="workorders">
+      </Route>
+      <Route
+        path="employees"
+        element={
+          <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+            <EmployeeList />
+          </AuthorizedRoute>
+        }
+      />
+      <Route path="*" element={<p>Whoops, nothing here...</p>} />
+    </Routes>
   );
 }
-

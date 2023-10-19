@@ -7,11 +7,11 @@ namespace LeeboysWildlife.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ServiceController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
         private LeeboysWildlifeDbContext _dbContext;
 
-        public ServiceController(LeeboysWildlifeDbContext context)
+        public EmployeeController(LeeboysWildlifeDbContext context)
         {
             _dbContext = context;
         }
@@ -21,9 +21,9 @@ namespace LeeboysWildlife.Controllers
 public IActionResult Get()
 {
     // Get all of the services from the database
-    var services = _dbContext.Services.ToList();
+    var employees = _dbContext.Employees.ToList();
 
-    return Ok(services);
+    return Ok(employees);
 }
 
         
@@ -32,15 +32,14 @@ public IActionResult Get()
 public IActionResult GetById(int id)
 {
     // Get the service
-    Service service = _dbContext.Services.SingleOrDefault(s => s.Id == id);
+    Employee employee= _dbContext.Employees.SingleOrDefault(e => e.Id == id);
 
-    if (service == null)
+    if (employee == null)
     {
         return NotFound();
     }
 
-    return Ok(service);
+    return Ok(employee);
 }
 }
 }
-

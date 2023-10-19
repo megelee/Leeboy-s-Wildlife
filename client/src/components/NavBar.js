@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
+
 import {
   Button,
   Collapse,
@@ -29,15 +30,22 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
             <Collapse isOpen={open} navbar>
               <Nav navbar>
                 <NavItem>
+                  <NavLink tag={RRNavLink} to="/">
+                    Home
+                  </NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink tag={RRNavLink} to="/services">
                     Services
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/workorders">
-                    Workorders
-                  </NavLink>
-                </NavItem>
+                {loggedInUser.roles.includes("Admin") && (
+                  <NavItem onClick={() => setOpen(false)}>
+                    <NavLink tag={RRNavLink} to="/employees">
+                      Employees
+                    </NavLink>
+                  </NavItem>
+                )}
               </Nav>
             </Collapse>
             <Button
