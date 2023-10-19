@@ -4,7 +4,8 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ServiceList from "./services/ServiceList.js";
 import EmployeeList from "./employee/EmployeeList.js";
-import Employee from "./employee/Employee.js";
+import ClientList from "./client /ClientList.js";
+
 
 const text =
   "Leeboy's Wildlife Removal specializes in providing humane wildlife removal services. We are dedicated to safely and ethically removing wildlife, such as raccoons, squirrels, and birds, from residential and commercial properties. Our mission is to protect both your property and the well-being of the wildlife we encounter. With our experienced team, we strive to ensure a safe and harmonious coexistence between humans and wildlife.";
@@ -31,6 +32,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         element={
           <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
             <EmployeeList />
+          </AuthorizedRoute>
+        }
+      />
+      <Route
+        path="clients"
+        element={
+          <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+            <ClientList />
           </AuthorizedRoute>
         }
       />
