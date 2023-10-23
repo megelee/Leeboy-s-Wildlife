@@ -59,7 +59,8 @@ namespace LeeboysWildlife.Migrations
                     Address = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Telephone = table.Column<string>(type: "text", nullable: false),
-                    UserProfileId = table.Column<int>(type: "integer", nullable: false)
+                    UserProfileId = table.Column<int>(type: "integer", nullable: false),
+                    Active = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,23 +68,36 @@ namespace LeeboysWildlife.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkOrders",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserProfileId = table.Column<int>(type: "integer", nullable: false),
-                    EmployeeId = table.Column<int>(type: "integer", nullable: true),
-                    ClientName = table.Column<string>(type: "text", nullable: false),
-                    Emergency = table.Column<bool>(type: "boolean", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DateCompleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Telephone = table.Column<string>(type: "text", nullable: false),
+                    Pay = table.Column<decimal>(type: "numeric", nullable: false),
+                    Active = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     ServiceTypeId = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkOrders", x => x.Id);
+                    table.PrimaryKey("PK_Services", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -221,47 +235,52 @@ namespace LeeboysWildlife.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "ServiceTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Telephone = table.Column<string>(type: "text", nullable: false),
-                    Pay = table.Column<decimal>(type: "numeric", nullable: false),
-                    WorkOrderId = table.Column<int>(type: "integer", nullable: true)
+                    Category = table.Column<string>(type: "text", nullable: false),
+                    ServiceId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.PrimaryKey("PK_ServiceTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employees_WorkOrders_WorkOrderId",
-                        column: x => x.WorkOrderId,
-                        principalTable: "WorkOrders",
+                        name: "FK_ServiceTypes_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Services",
+                name: "WorkOrders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    ServiceTypeId = table.Column<int>(type: "integer", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    WorkOrderId = table.Column<int>(type: "integer", nullable: true)
+                    UserProfileId = table.Column<int>(type: "integer", nullable: false),
+                    EmployeeId = table.Column<int>(type: "integer", nullable: true),
+                    Emergency = table.Column<bool>(type: "boolean", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DateCompleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    ServiceId = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.PrimaryKey("PK_WorkOrders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Services_WorkOrders_WorkOrderId",
-                        column: x => x.WorkOrderId,
-                        principalTable: "WorkOrders",
+                        name: "FK_WorkOrders_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_WorkOrders_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,52 +307,33 @@ namespace LeeboysWildlife.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ServiceTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Category = table.Column<string>(type: "text", nullable: false),
-                    ServiceId = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceTypes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServiceTypes_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "30697250-3e8f-4477-90e0-adfa3e4028b8", "Admin", "admin" });
+                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "fb1792bc-ca40-4942-83f9-661c85d5aa18", "Admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "4e6a44f1-a8c7-40db-b706-4796e17c65ca", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEIWYz5iiY142PrhyuPmfT7k4txr9qpsMt07XedjaFRVs0h/Yfp4KyPMBazB/KkAhag==", null, false, "71d25194-12d5-461f-9705-1b1eb2e3c6e2", false, "Leeboy" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "c44caab3-2689-49f8-91ea-ec0add5b1ca6", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEDLySP3R/XRl5qeFL9Kcrmp9gVZyxRmvag5o0qau9eYwEZoIUvgnOtVr047Zp1Xalg==", null, false, "deab4063-431a-4228-bd1b-0c0a100679cc", false, "Leeboy" });
 
             migrationBuilder.InsertData(
                 table: "Clients",
-                columns: new[] { "Id", "Address", "Email", "Name", "Telephone", "UserProfileId" },
+                columns: new[] { "Id", "Active", "Address", "Email", "Name", "Telephone", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, "224 LJ Est.", "mlee@email.com", "Megan Lee", "123-456-789", 1 },
-                    { 2, "3081 County Rd. D.", "jjames@email.com", "John James", "321-654-987", 2 }
+                    { 1, true, "224 LJ Est.", "mlee@email.com", "Megan Lee", "123-456-789", 1 },
+                    { 2, true, "3081 County Rd. D.", "jjames@email.com", "John James", "321-654-987", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Id", "Address", "Email", "Name", "Pay", "Telephone", "WorkOrderId" },
+                columns: new[] { "Id", "Active", "Address", "Email", "Name", "Pay", "Telephone" },
                 values: new object[,]
                 {
-                    { 1, "224 LJ Est.", "ml@email.com", "Mike Lee", 21.50m, "146-456-789", null },
-                    { 2, "446 Evelyn Lane", "SLee@email.com", "Steve Lee", 19.50m, "351-654-987", null },
-                    { 3, "580 Forrest St", "dlee@email.com", "Dan Lee", 19.50m, "351-894-987", null }
+                    { 1, true, "224 LJ Est.", "ml@email.com", "Mike Lee", 21.50m, "146-456-789" },
+                    { 2, false, "446 Evelyn Lane", "SLee@email.com", "Steve Lee", 19.50m, "351-654-987" },
+                    { 3, true, "580 Forrest St", "dlee@email.com", "Dan Lee", 19.50m, "351-894-987" }
                 });
 
             migrationBuilder.InsertData(
@@ -347,21 +347,12 @@ namespace LeeboysWildlife.Migrations
 
             migrationBuilder.InsertData(
                 table: "Services",
-                columns: new[] { "Id", "Description", "Name", "ServiceTypeId", "WorkOrderId" },
+                columns: new[] { "Id", "Description", "Name", "ServiceTypeId" },
                 values: new object[,]
                 {
-                    { 1, "A full home exclusion service by a wildlife removal company encompasses inspection, humane wildlife removal, structural repairs, and sanitation. It aims to prevent future intrusions by sealing entry points and providing homeowners with guidance on wildlife prevention. This comprehensive approach ensures the safety, cleanliness, and long-term protection of the property from unwanted wildlife.", "Full Home Exclusion", 1, null },
-                    { 2, "A partial home exclusion service provided by a wildlife removal company focuses on addressing specific areas or entry points where wildlife is gaining access to a property. It involves identifying and sealing these vulnerable points, along with the removal of any wildlife currently present. Unlike a full home exclusion, it's a more targeted approach, typically addressing particular areas of concern rather than the entire property.", "Partial Home Exclusion", 1, null },
-                    { 3, "Wildlife removal is a service offered by specialized companies to safely and humanely remove unwanted animals from a property. This process typically includes identifying the type of wildlife, employing appropriate trapping or removal methods, and releasing the animals back into their natural habitat or relocating them as required. The primary goal of wildlife removal is to eliminate the immediate animal intrusion without necessarily addressing preventative measures or property repairs, as done in full or partial home exclusion services.", "Wildlife Removal", 2, null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "WorkOrders",
-                columns: new[] { "Id", "ClientName", "DateCompleted", "DateCreated", "Description", "Emergency", "EmployeeId", "ServiceTypeId", "UserProfileId" },
-                values: new object[,]
-                {
-                    { 1, "Megan Lee", null, new DateTime(2023, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bats in the attic", true, 1, 2, 1 },
-                    { 2, "James John", new DateTime(2023, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sealing up HVAC Unit", false, 3, 1, 2 }
+                    { 1, "A full home exclusion service by a wildlife removal company encompasses inspection, humane wildlife removal, structural repairs, and sanitation. It aims to prevent future intrusions by sealing entry points and providing homeowners with guidance on wildlife prevention. This comprehensive approach ensures the safety, cleanliness, and long-term protection of the property from unwanted wildlife.", "Full Home Exclusion", 1 },
+                    { 2, "A partial home exclusion service provided by a wildlife removal company focuses on addressing specific areas or entry points where wildlife is gaining access to a property. It involves identifying and sealing these vulnerable points, along with the removal of any wildlife currently present. Unlike a full home exclusion, it's a more targeted approach, typically addressing particular areas of concern rather than the entire property.", "Partial Home Exclusion", 1 },
+                    { 3, "Wildlife removal is a service offered by specialized companies to safely and humanely remove unwanted animals from a property. This process typically includes identifying the type of wildlife, employing appropriate trapping or removal methods, and releasing the animals back into their natural habitat or relocating them as required. The primary goal of wildlife removal is to eliminate the immediate animal intrusion without necessarily addressing preventative measures or property repairs, as done in full or partial home exclusion services.", "Wildlife Removal", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -373,6 +364,15 @@ namespace LeeboysWildlife.Migrations
                 table: "UserProfiles",
                 columns: new[] { "Id", "Address", "ClientId", "FirstName", "IdentityUserId", "LastName" },
                 values: new object[] { 1, "Western Wisconsin", null, "Mike", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Lee" });
+
+            migrationBuilder.InsertData(
+                table: "WorkOrders",
+                columns: new[] { "Id", "DateCompleted", "DateCreated", "Description", "Emergency", "EmployeeId", "ServiceId", "UserProfileId" },
+                values: new object[,]
+                {
+                    { 1, null, new DateTime(2023, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bats in the attic", true, 1, 2, 1 },
+                    { 2, new DateTime(2023, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sealing up HVAC Unit", false, 3, 1, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -412,16 +412,6 @@ namespace LeeboysWildlife.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_WorkOrderId",
-                table: "Employees",
-                column: "WorkOrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Services_WorkOrderId",
-                table: "Services",
-                column: "WorkOrderId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ServiceTypes_ServiceId",
                 table: "ServiceTypes",
                 column: "ServiceId");
@@ -440,6 +430,16 @@ namespace LeeboysWildlife.Migrations
                 name: "IX_UserProfileWorkOrder_WorkOrdersId",
                 table: "UserProfileWorkOrder",
                 column: "WorkOrdersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkOrders_EmployeeId",
+                table: "WorkOrders",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkOrders_ServiceId",
+                table: "WorkOrders",
+                column: "ServiceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -460,9 +460,6 @@ namespace LeeboysWildlife.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
                 name: "ServiceTypes");
 
             migrationBuilder.DropTable(
@@ -470,9 +467,6 @@ namespace LeeboysWildlife.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "UserProfiles");
@@ -485,6 +479,12 @@ namespace LeeboysWildlife.Migrations
 
             migrationBuilder.DropTable(
                 name: "Clients");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Services");
         }
     }
 }

@@ -36,6 +36,7 @@ export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
           <p>Email: {employee.email}</p>
           <p>Phone: {employee.telephone}</p>
           <p>Pay: {employee.pay}</p>
+          <p>Active: {employee.active}</p>
           <Button color="danger" onClick={onCloseClick}>
             Close
           </Button>

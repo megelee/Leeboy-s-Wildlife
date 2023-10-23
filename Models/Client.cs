@@ -8,6 +8,7 @@ public class Client
     public string Email { get; set; }
     public string Telephone { get; set; }
     public int UserProfileId { get; set; }
+    public bool Active { get; set; }
 
     public List <UserProfile> UserProfiles { get; set; }
 }

@@ -64,6 +64,7 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
                 Address = "224 LJ Est.",
                 Email = "ml@email.com",
                 Telephone = "146-456-789",
+                Active = true,
                 Pay = 21.50M
 
                 
@@ -87,6 +88,7 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
                 Address = "580 Forrest St",
                 Email = "dlee@email.com",
                 Telephone = "351-894-987",
+                Active = true,
                 Pay = 19.50M
                 
                 
@@ -101,7 +103,8 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
                 Name = "Megan Lee",
                 Address = "224 LJ Est.",
                 Email = "mlee@email.com",
-                Telephone = "123-456-789"
+                Telephone = "123-456-789",
+                Active = true
 
                 
             },
@@ -112,7 +115,8 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
                 Name = "John James",
                 Address = "3081 County Rd. D.",
                 Email = "jjames@email.com",
-                Telephone = "321-654-987"
+                Telephone = "321-654-987",
+                Active = true
                 
                 
             }
@@ -171,8 +175,7 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
                 Id = 1,
                 EmployeeId = 1,
                 UserProfileId = 1,
-                ClientName = "Megan Lee",
-                ServiceTypeId = 2, 
+                ServiceId = 2,
                 Description = "Bats in the attic",
                 Emergency = true,
                 DateCreated = new DateTime(2023, 7, 15)
@@ -182,8 +185,7 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
                 Id = 2,
                 EmployeeId = 3,
                 UserProfileId = 2,
-                ClientName = "James John",
-                ServiceTypeId = 1,
+                ServiceId = 1,
                 Description = "Sealing up HVAC Unit",
                 Emergency = false,
                 DateCreated = new DateTime(2023, 7, 12),

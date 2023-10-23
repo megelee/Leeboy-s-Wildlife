@@ -35,6 +35,7 @@ export default function ClientDetails({ detailsClientId, onCloseClick }) {
           <p>Address: {client.address}</p>
           <p>Email: {client.email}</p>
           <p>Phone: {client.telephone}</p>
+          <p>Active: {client.active}</p>
           <Button color="danger" onClick={onCloseClick}>
             Close
           </Button>

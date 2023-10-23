@@ -3,6 +3,9 @@ const _apiUrl = "/api/workorder";
 export const getIncompleteWorkOrders = () => {
   return fetch(_apiUrl + "/incomplete").then((res) => res.json());
 };
+export const getAllWorkOrders = () => {
+  return fetch(_apiUrl + "/all").then((res) => res.json());
+};
 
 export const createWorkOrder = (workOrder) => {
     return fetch(_apiUrl, {

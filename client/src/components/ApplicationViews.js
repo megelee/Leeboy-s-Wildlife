@@ -5,6 +5,7 @@ import Register from "./auth/Register";
 import ServiceList from "./services/ServiceList.js";
 import EmployeeList from "./employee/EmployeeList.js";
 import ClientList from "./client /ClientList.js";
+import WorkOrderList from "./workorders/WorkOrderList.js";
 
 
 const text =
@@ -25,8 +26,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
       <Route path="login" element={<Login setLoggedInUser={setLoggedInUser} />} />
       <Route path="register" element={<Register setLoggedInUser={setLoggedInUser} />} />
       <Route path="services" element={<ServiceList />} />
-      <Route path="workorders">
-      </Route>
+      <Route
+    path="workorders"
+    element={
+        <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+            <WorkOrderList />
+        </AuthorizedRoute>
+    }
+    />
       <Route
         path="employees"
         element={

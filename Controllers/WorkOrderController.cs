@@ -18,16 +18,16 @@ public class WorkOrderController : ControllerBase
     }
 
     [HttpGet("incomplete")]
-    [Authorize]
-    public IActionResult GetIncompleteWorkOrders()
-    {
-        return Ok(_dbContext.WorkOrders
+[Authorize]
+public IActionResult GetIncompleteWorkOrders()
+{
+    return Ok(_dbContext.WorkOrders
         .Where(wo => wo.DateCompleted == null)
-        .Include(wo => wo.ServiceTypeId)
-        .Include(wo => wo.UserProfileId)
+        .Include(wo => wo.Employee) // Replace "Employee" with the actual navigation property name representing employees
         .OrderBy(wo => wo.DateCreated)
-        .ThenByDescending(wo => wo.UserProfileId == null).ToList());
-    }
+        .ThenByDescending(wo => wo.UserProfileId == null)
+        .ToList());
+}
 
     [HttpPost]
 [Authorize]
@@ -39,6 +39,15 @@ public IActionResult CreateWorkOrder(WorkOrder workOrder)
     return Created($"/api/workorder/{workOrder.Id}", workOrder);
 }
 
+[HttpGet("all")]
+[Authorize]
+public IActionResult Get()
+{
+    // Get all of the services from the database
+    var workOrders = _dbContext.WorkOrders.ToList();
+
+    return Ok(workOrders);
+}
 [HttpPut("{id}")]
 [Authorize]
 public IActionResult UpdateWorkOrder(WorkOrder workOrder, int id)

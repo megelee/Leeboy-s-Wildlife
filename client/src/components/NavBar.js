@@ -51,7 +51,13 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                         Employees
                       </NavLink>
                     </NavItem>
+                <NavItem onClick={() => setOpen(false)}>
+                  <NavLink tag={RRNavLink} to="/workorders">
+                    Work Orders
+                  </NavLink>
+                </NavItem>
                   </>
+                  
                 )}
               </Nav>
             </Collapse>

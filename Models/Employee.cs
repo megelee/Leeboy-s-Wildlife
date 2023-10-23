@@ -8,4 +8,5 @@ public class Employee
     public string Email { get; set; }
     public string Telephone { get; set; }
     public decimal Pay { get; set; }
+    public bool Active { get; set; }
 }

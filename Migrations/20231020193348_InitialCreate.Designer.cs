@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LeeboysWildlife.Migrations
 {
     [DbContext(typeof(LeeboysWildlifeDbContext))]
-    [Migration("20231017183637_InitialCreate")]
+    [Migration("20231020193348_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace LeeboysWildlife.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -59,6 +62,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = 1,
+                            Active = true,
                             Address = "224 LJ Est.",
                             Email = "mlee@email.com",
                             Name = "Megan Lee",
@@ -68,6 +72,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = 2,
+                            Active = true,
                             Address = "3081 County Rd. D.",
                             Email = "jjames@email.com",
                             Name = "John James",
@@ -83,6 +88,9 @@ namespace LeeboysWildlife.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -103,12 +111,7 @@ namespace LeeboysWildlife.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("WorkOrderId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WorkOrderId");
 
                     b.ToTable("Employees");
 
@@ -116,6 +119,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = 1,
+                            Active = true,
                             Address = "224 LJ Est.",
                             Email = "ml@email.com",
                             Name = "Mike Lee",
@@ -125,6 +129,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = 2,
+                            Active = false,
                             Address = "446 Evelyn Lane",
                             Email = "SLee@email.com",
                             Name = "Steve Lee",
@@ -134,6 +139,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = 3,
+                            Active = true,
                             Address = "580 Forrest St",
                             Email = "dlee@email.com",
                             Name = "Dan Lee",
@@ -161,12 +167,7 @@ namespace LeeboysWildlife.Migrations
                     b.Property<int>("ServiceTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("WorkOrderId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WorkOrderId");
 
                     b.ToTable("Services");
 
@@ -282,10 +283,6 @@ namespace LeeboysWildlife.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime?>("DateCompleted")
                         .HasColumnType("timestamp without time zone");
 
@@ -302,7 +299,7 @@ namespace LeeboysWildlife.Migrations
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ServiceTypeId")
+                    b.Property<int>("ServiceId")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserProfileId")
@@ -310,30 +307,32 @@ namespace LeeboysWildlife.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ServiceId");
+
                     b.ToTable("WorkOrders");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ClientName = "Megan Lee",
                             DateCreated = new DateTime(2023, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Bats in the attic",
                             Emergency = true,
                             EmployeeId = 1,
-                            ServiceTypeId = 2,
+                            ServiceId = 2,
                             UserProfileId = 1
                         },
                         new
                         {
                             Id = 2,
-                            ClientName = "James John",
                             DateCompleted = new DateTime(2023, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateCreated = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Sealing up HVAC Unit",
                             Emergency = false,
                             EmployeeId = 3,
-                            ServiceTypeId = 1,
+                            ServiceId = 1,
                             UserProfileId = 2
                         });
                 });
@@ -367,7 +366,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "30697250-3e8f-4477-90e0-adfa3e4028b8",
+                            ConcurrencyStamp = "fb1792bc-ca40-4942-83f9-661c85d5aa18",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -466,13 +465,13 @@ namespace LeeboysWildlife.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4e6a44f1-a8c7-40db-b706-4796e17c65ca",
+                            ConcurrencyStamp = "c44caab3-2689-49f8-91ea-ec0add5b1ca6",
                             Email = "leeboyswildliferemoval@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEIWYz5iiY142PrhyuPmfT7k4txr9qpsMt07XedjaFRVs0h/Yfp4KyPMBazB/KkAhag==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDLySP3R/XRl5qeFL9Kcrmp9gVZyxRmvag5o0qau9eYwEZoIUvgnOtVr047Zp1Xalg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "71d25194-12d5-461f-9705-1b1eb2e3c6e2",
+                            SecurityStamp = "deab4063-431a-4228-bd1b-0c0a100679cc",
                             TwoFactorEnabled = false,
                             UserName = "Leeboy"
                         });
@@ -581,20 +580,6 @@ namespace LeeboysWildlife.Migrations
                     b.ToTable("UserProfileWorkOrder");
                 });
 
-            modelBuilder.Entity("LeeboysWildlife.Models.Employee", b =>
-                {
-                    b.HasOne("LeeboysWildlife.Models.WorkOrder", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("WorkOrderId");
-                });
-
-            modelBuilder.Entity("LeeboysWildlife.Models.Service", b =>
-                {
-                    b.HasOne("LeeboysWildlife.Models.WorkOrder", null)
-                        .WithMany("Services")
-                        .HasForeignKey("WorkOrderId");
-                });
-
             modelBuilder.Entity("LeeboysWildlife.Models.ServiceType", b =>
                 {
                     b.HasOne("LeeboysWildlife.Models.Service", null)
@@ -615,6 +600,23 @@ namespace LeeboysWildlife.Migrations
                         .IsRequired();
 
                     b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("LeeboysWildlife.Models.WorkOrder", b =>
+                {
+                    b.HasOne("LeeboysWildlife.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("LeeboysWildlife.Models.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -691,13 +693,6 @@ namespace LeeboysWildlife.Migrations
             modelBuilder.Entity("LeeboysWildlife.Models.Service", b =>
                 {
                     b.Navigation("ServiceTypes");
-                });
-
-            modelBuilder.Entity("LeeboysWildlife.Models.WorkOrder", b =>
-                {
-                    b.Navigation("Employees");
-
-                    b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
         }
