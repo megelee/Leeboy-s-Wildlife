@@ -12,7 +12,7 @@ public class WorkOrder
     public int? ServiceId { get; set; }
     public string Description { get; set; }
 
-    public List <UserProfile> UserProfiles { get; set; }
-    public Employee Employee { get; set; }
-    public Service Service { get; set; }
+    public List <UserProfile>? UserProfiles { get; set; }
+    public Employee? Employee { get; set; }
+    public Service? Service { get; set; }
 }

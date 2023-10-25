@@ -6,6 +6,7 @@ import ServiceList from "./services/ServiceList.js";
 import EmployeeList from "./employee/EmployeeList.js";
 import ClientList from "./client /ClientList.js";
 import WorkOrderList from "./workorders/WorkOrderList.js";
+import  CreateWorkOrder  from "./workorders/CreateWorkOrder.js";
 
 
 const text =
@@ -34,6 +35,15 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         </AuthorizedRoute>
     }
     />
+        <Route
+          path="workorders/create"
+          element={
+            <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+              <CreateWorkOrder />
+            </AuthorizedRoute>
+          }
+        />
+    
       <Route
         path="employees"
         element={
@@ -49,8 +59,9 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             <ClientList />
           </AuthorizedRoute>
         }
-      />
+        />
       <Route path="*" element={<p>Whoops, nothing here...</p>} />
     </Routes>
   );
 }
+

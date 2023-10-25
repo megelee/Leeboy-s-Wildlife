@@ -8,6 +8,7 @@ export const getAllWorkOrders = () => {
 };
 
 export const createWorkOrder = (workOrder) => {
+  console.log(workOrder)
     return fetch(_apiUrl, {
       method: "POST",
       headers: {

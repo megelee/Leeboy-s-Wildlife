@@ -3,46 +3,52 @@ import { Button, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import {
   getIncompleteWorkOrders,
-  getAllWorkOrders,
-  updateAsComplete,
-  updateWorkOrder,
   deleteAWorkOrder,
+  updateWorkOrder,
+  getAllWorkOrders,
 } from "../../managers/workOrderManager.js";
 
-  
 export default function WorkOrderList({ loggedInUser }) {
   const [workOrders, setWorkOrders] = useState([]);
   const [expandedDetails, setExpandedDetails] = useState(null);
   const [sortCriteria, setSortCriteria] = useState("description");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [editingDetails, setEditingDetails] = useState(null);
+  const [editedDescription, setEditedDescription] = useState("");
 
   useEffect(() => {
-    // Load work orders from local storage on page load
-    const storedWorkOrders = JSON.parse(localStorage.getItem("workOrders")) || [];
-    setWorkOrders(storedWorkOrders);
+    // Define an async function to fetch work orders and handle updates
+    const fetchWorkOrders = async () => {
+      try {
+        const newWorkOrders = await getAllWorkOrders(); // Fetch new work orders
+
+        // Update local storage and state with the new work orders
+        updateLocalStorage(newWorkOrders);
+        setWorkOrders(newWorkOrders);
+      } catch (error) {
+        console.error("Error fetching work orders:", error);
+      }
+    };
+
+    // Call the async function to fetch and update work orders
+    fetchWorkOrders();
   }, []);
 
   const updateLocalStorage = (updatedWorkOrders) => {
-    // Update local storage with the completed status
     localStorage.setItem("workOrders", JSON.stringify(updatedWorkOrders));
   };
 
-  const completeWorkOrder = (workOrderId) => {
-    const updatedWorkOrders = workOrders.map((wo) => {
-      if (wo.id === workOrderId) {
-        return { ...wo, dateCompleted: new Date() };
-      }
-      return wo;
-    });
-
-    updateLocalStorage(updatedWorkOrders);
-    setWorkOrders(updatedWorkOrders);
-  };
-
   const removeWorkOrder = (workOrderId) => {
-    deleteAWorkOrder(workOrderId).then(() => {
-      getIncompleteWorkOrders().then(setWorkOrders);
-    });
+    deleteAWorkOrder(workOrderId)
+      .then(() => {
+        // Update local storage with the updated work orders
+        const updatedWorkOrders = workOrders.filter((wo) => wo.id !== workOrderId);
+        updateLocalStorage(updatedWorkOrders);
+        setWorkOrders(updatedWorkOrders);
+      })
+      .catch((error) => {
+        console.error("Error deleting work order:", error);
+      });
   };
 
   const toggleDetails = (workOrderId) => {
@@ -63,6 +69,27 @@ export default function WorkOrderList({ loggedInUser }) {
     setWorkOrders(sortedWorkOrders);
   };
 
+  const editWorkOrder = (workOrderId) => {
+    setEditingDetails(workOrderId);
+  };
+
+  const saveWorkOrder = (workOrderId, updatedWorkOrderData) => {
+    updateWorkOrder(workOrderId, updatedWorkOrderData)
+      .then(() => {
+        getIncompleteWorkOrders().then((updatedWorkOrders) => {
+          setWorkOrders(updatedWorkOrders);
+          setEditingDetails(null);
+        });
+      })
+      .catch((error) => {
+        console.error("Error updating work order:", error);
+      });
+  };
+
+  const cancelEdit = () => {
+    setEditingDetails(null);
+  };
+
   return (
     <>
       <h2>Work Orders</h2>
@@ -71,7 +98,6 @@ export default function WorkOrderList({ loggedInUser }) {
         <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
           <option value="description">Description</option>
           <option value="dateCreated">Date Created</option>
-          {/* Add other criteria as needed */}
         </select>
         <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
           <option value="asc">A-Z</option>
@@ -79,7 +105,8 @@ export default function WorkOrderList({ loggedInUser }) {
         </select>
         <button onClick={sortWorkOrders}>Sort</button>
       </div>
-      <Link to="/workorders/create">New Work Order</Link>
+      <Link to="create">New Work Order</Link>
+
       <Table>
         <thead>
           <tr>
@@ -96,14 +123,27 @@ export default function WorkOrderList({ loggedInUser }) {
                 <Button onClick={() => toggleDetails(wo.id)} color="info">
                   View Details
                 </Button>
+                <Button onClick={() => editWorkOrder(wo.id)} color="primary">
+                  Edit
+                </Button>
                 <Button onClick={() => removeWorkOrder(wo.id)} color="danger">
                   Delete
                 </Button>
-                {!wo.dateCompleted && (
-                  <Button onClick={() => completeWorkOrder(wo.id)} color="success">
-                    Mark as Complete
-                  </Button>
-                )}
+                {editingDetails === wo.id ? (
+                  <div>
+                    <input
+                      type="text"
+                      value={editedDescription}
+                      onChange={(e) => setEditedDescription(e.target.value)}
+                    />
+                    <Button onClick={() => saveWorkOrder(wo.id, { description: editedDescription })} color="success">
+                      Save
+                    </Button>
+                    <Button onClick={cancelEdit} color="secondary">
+                      Cancel
+                    </Button>
+                  </div>
+                ) : null}
                 {expandedDetails === wo.id && (
                   <div>
                     <p>Service Name: {wo.serviceId}</p>
@@ -120,4 +160,4 @@ export default function WorkOrderList({ loggedInUser }) {
       </Table>
     </>
   );
-                }
+}
