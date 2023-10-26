@@ -49,9 +49,6 @@ namespace LeeboysWildlife.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserProfileId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
@@ -64,8 +61,7 @@ namespace LeeboysWildlife.Migrations
                             Address = "224 LJ Est.",
                             Email = "mlee@email.com",
                             Name = "Megan Lee",
-                            Telephone = "123-456-789",
-                            UserProfileId = 1
+                            Telephone = "123-456-789"
                         },
                         new
                         {
@@ -74,8 +70,7 @@ namespace LeeboysWildlife.Migrations
                             Address = "3081 County Rd. D.",
                             Email = "jjames@email.com",
                             Name = "John James",
-                            Telephone = "321-654-987",
-                            UserProfileId = 2
+                            Telephone = "321-654-987"
                         });
                 });
 
@@ -297,7 +292,7 @@ namespace LeeboysWildlife.Migrations
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ServiceId")
+                    b.Property<int?>("ServiceId")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserProfileId")
@@ -364,7 +359,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "fb1792bc-ca40-4942-83f9-661c85d5aa18",
+                            ConcurrencyStamp = "1f7c83b6-ec2d-40a8-a93d-48b1e17dc055",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -463,13 +458,13 @@ namespace LeeboysWildlife.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c44caab3-2689-49f8-91ea-ec0add5b1ca6",
+                            ConcurrencyStamp = "5a4a8b4c-48f0-45db-b9a6-625665f5ede1",
                             Email = "leeboyswildliferemoval@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDLySP3R/XRl5qeFL9Kcrmp9gVZyxRmvag5o0qau9eYwEZoIUvgnOtVr047Zp1Xalg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOM+I+l503QICSdUSA4nCrGY6VIKXE9mqLRp6Qit5tWiyfH6aDJf1LZAoUKEvSyImw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "deab4063-431a-4228-bd1b-0c0a100679cc",
+                            SecurityStamp = "da44aa87-d4cc-46a8-bd5d-e43572890020",
                             TwoFactorEnabled = false,
                             UserName = "Leeboy"
                         });
@@ -608,9 +603,7 @@ namespace LeeboysWildlife.Migrations
 
                     b.HasOne("LeeboysWildlife.Models.Service", "Service")
                         .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ServiceId");
 
                     b.Navigation("Employee");
 

@@ -29,6 +29,7 @@ export const createWorkOrder = (workOrder) => {
   };
 
   export const updateAsComplete = (workOrder) => {
+    console.log(workOrder)
     return fetch(`${_apiUrl}/${workOrder.id}/complete`, {
         method: "PUT",
         headers: {

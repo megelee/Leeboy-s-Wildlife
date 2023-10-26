@@ -33,10 +33,7 @@ export default function CreateWorkOrder({ loggedInUser }) {
       description,
       emergency,
       dateCreated,
-      dateCompleted,
-      // Service: services.find((s) => s.id === serviceId), // Provide the Service object
-      // Employee: employees.find((e) => e.id === employeeId), // Provide the Employee object
-      // UserProfiles: [userProfiles.find((up) => up.id === userProfileId)] // Provide an array of UserProfile objects
+      dateCompleted,     
     };
 
     createWorkOrder(newWorkOrder).then(() => {

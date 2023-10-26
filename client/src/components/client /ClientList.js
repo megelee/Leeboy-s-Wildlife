@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllClients } from "../../managers/clientManager.js";
 import ClientDetails from "./ClientDetails.js";
 import ClientCard from "./ClientCard.js";
+import { Link } from "react-router-dom";
 
 
 export default function ClientList() {
@@ -27,6 +28,7 @@ export default function ClientList() {
   return (
     <div>
       <h2>Clients</h2>
+      <Link to="/create-client">Create New Client</Link> {/* Add this link */}
       <div className="client-list">
         {clients.map((client) => (
           <ClientCard

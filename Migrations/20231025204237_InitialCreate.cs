@@ -59,7 +59,6 @@ namespace LeeboysWildlife.Migrations
                     Address = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Telephone = table.Column<string>(type: "text", nullable: false),
-                    UserProfileId = table.Column<int>(type: "integer", nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -264,7 +263,7 @@ namespace LeeboysWildlife.Migrations
                     Emergency = table.Column<bool>(type: "boolean", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateCompleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    ServiceId = table.Column<int>(type: "integer", nullable: false),
+                    ServiceId = table.Column<int>(type: "integer", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -279,8 +278,7 @@ namespace LeeboysWildlife.Migrations
                         name: "FK_WorkOrders_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -310,20 +308,20 @@ namespace LeeboysWildlife.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "fb1792bc-ca40-4942-83f9-661c85d5aa18", "Admin", "admin" });
+                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "1f7c83b6-ec2d-40a8-a93d-48b1e17dc055", "Admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "c44caab3-2689-49f8-91ea-ec0add5b1ca6", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEDLySP3R/XRl5qeFL9Kcrmp9gVZyxRmvag5o0qau9eYwEZoIUvgnOtVr047Zp1Xalg==", null, false, "deab4063-431a-4228-bd1b-0c0a100679cc", false, "Leeboy" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "5a4a8b4c-48f0-45db-b9a6-625665f5ede1", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEOM+I+l503QICSdUSA4nCrGY6VIKXE9mqLRp6Qit5tWiyfH6aDJf1LZAoUKEvSyImw==", null, false, "da44aa87-d4cc-46a8-bd5d-e43572890020", false, "Leeboy" });
 
             migrationBuilder.InsertData(
                 table: "Clients",
-                columns: new[] { "Id", "Active", "Address", "Email", "Name", "Telephone", "UserProfileId" },
+                columns: new[] { "Id", "Active", "Address", "Email", "Name", "Telephone" },
                 values: new object[,]
                 {
-                    { 1, true, "224 LJ Est.", "mlee@email.com", "Megan Lee", "123-456-789", 1 },
-                    { 2, true, "3081 County Rd. D.", "jjames@email.com", "John James", "321-654-987", 2 }
+                    { 1, true, "224 LJ Est.", "mlee@email.com", "Megan Lee", "123-456-789" },
+                    { 2, true, "3081 County Rd. D.", "jjames@email.com", "John James", "321-654-987" }
                 });
 
             migrationBuilder.InsertData(

@@ -40,5 +40,14 @@ public IActionResult GetById(int id)
 
     return Ok(client);
 }
+
+    [HttpPost]
+[Authorize]
+public IActionResult CreateClient(Client client)
+{
+    _dbContext.Clients.Add(client);
+    _dbContext.SaveChanges();
+    return Created($"/api/client/{client.Id}", client);
 }
+    }
 }

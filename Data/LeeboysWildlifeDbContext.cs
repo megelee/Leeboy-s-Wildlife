@@ -99,7 +99,6 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
             new Client
             {
                 Id = 1,
-                UserProfileId = 1,
                 Name = "Megan Lee",
                 Address = "224 LJ Est.",
                 Email = "mlee@email.com",
@@ -111,7 +110,6 @@ public class LeeboysWildlifeDbContext : IdentityDbContext<IdentityUser>
             new Client
             {
                 Id = 2,
-                UserProfileId = 2,
                 Name = "John James",
                 Address = "3081 County Rd. D.",
                 Email = "jjames@email.com",

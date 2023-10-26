@@ -20,7 +20,7 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
 
   return (
     <div>
-      <Navbar color="light" light fixed="true" expand="lg">
+      <Navbar color="light" light fixed={true} expand="lg">
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
           🦝Leeboy's Wildlife Removal
         </NavbarBrand>
@@ -39,25 +39,24 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
                     Services
                   </NavLink>
                 </NavItem>
-                {loggedInUser.roles.includes("Admin") && (
-                  <>
-                    <NavItem onClick={() => setOpen(false)}>
-                      <NavLink tag={RRNavLink} to="/clients">
-                        Clients
-                      </NavLink>
-                    </NavItem>
-                    <NavItem onClick={() => setOpen(false)}>
-                      <NavLink tag={RRNavLink} to="/employees">
-                        Employees
-                      </NavLink>
-                    </NavItem>
-                <NavItem onClick={() => setOpen(false)}>
+                <NavItem>
                   <NavLink tag={RRNavLink} to="/workorders">
                     Work Orders
                   </NavLink>
                 </NavItem>
+                {loggedInUser.roles.includes("Admin") && (
+                  <>
+                    <NavItem>
+                      <NavLink tag={RRNavLink} to="/clients">
+                        Clients
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink tag={RRNavLink} to="/employees">
+                        Employees
+                      </NavLink>
+                    </NavItem>
                   </>
-                  
                 )}
               </Nav>
             </Collapse>
@@ -65,10 +64,9 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
               color="primary"
               onClick={(e) => {
                 e.preventDefault();
-                setOpen(false);
+                setOpen(false); // Remove this line
                 logout().then(() => {
                   setLoggedInUser(null);
-                  setOpen(false);
                 });
               }}
             >

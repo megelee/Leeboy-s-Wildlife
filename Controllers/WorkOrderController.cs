@@ -71,7 +71,7 @@ public IActionResult UpdateWorkOrder(WorkOrder workOrder, int id)
     return NoContent();
 }
 [HttpPut("{id}/complete")]
-    [Authorize]
+    //[Authorize]
     public IActionResult UpDateAsComplete(WorkOrder workOrder, int id)
     {
         WorkOrder workOrderToUpdate = _dbContext.WorkOrders.SingleOrDefault(wo => wo.Id == id);
