@@ -49,5 +49,21 @@ public IActionResult CreateEmployee(Employee employee)
     _dbContext.SaveChanges();
     return Created($"/api/employee/{employee.Id}", employee);
 }
+[HttpPost("deactivate/{id}")]
+[Authorize]
+public IActionResult DeactivateEmployee(int id)
+{
+    var employee = _dbContext.Employees.SingleOrDefault(e => e.Id == id);
+    if (employee == null)
+    {
+        return NotFound();
+    }
+
+    employee.Active = false;
+    _dbContext.SaveChanges();
+
+    return Ok();
+}
+
     }
 }

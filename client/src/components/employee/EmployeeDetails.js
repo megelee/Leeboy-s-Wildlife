@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardTitle, CardSubtitle, CardBody, Button } from "reactstrap";
-import { getEmployeeById } from "../../managers/employeeManager.js";
+import { getEmployeeById, deactivateEmployee } from "../../managers/employeeManager.js";
 
 export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
   const [employee, setEmployee] = useState(null);
@@ -14,6 +14,21 @@ export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
       getEmployeeDetails(detailsEmployeeId);
     }
   }, [detailsEmployeeId]);
+
+  const handleDeactivateClick = () => {
+    if (employee) {
+      deactivateEmployee(employee.id)
+        .then(() => {
+          // Handle successful deactivation, e.g., show a success message.
+          // You might want to update the local state to reflect the deactivation.
+        })
+        .catch((error) => {
+          console.error("Error deactivating employee:", error);
+          // Handle the error, e.g., show an error message.
+        });
+    }
+  };
+  
 
   if (!employee) {
     return (
@@ -36,7 +51,10 @@ export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
           <p>Email: {employee.email}</p>
           <p>Phone: {employee.telephone}</p>
           <p>Pay: {employee.pay}</p>
-          <p>Active: {employee.active}</p>
+          <p>Active: {employee.active ? "Yes" : "No"}</p>
+          <Button color="danger" onClick={handleDeactivateClick}>
+            Deactivate
+          </Button>
           <Button color="danger" onClick={onCloseClick}>
             Close
           </Button>
