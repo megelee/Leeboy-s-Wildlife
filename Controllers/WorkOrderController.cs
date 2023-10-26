@@ -50,32 +50,32 @@ public IActionResult Get()
 }
 [HttpPut("{id}")]
 [Authorize]
-public IActionResult UpdateWorkOrder(WorkOrder workOrder, int id)
+public IActionResult UpdateWorkOrder(int id, [FromBody] WorkOrder updatedWorkOrder)
 {
     WorkOrder workOrderToUpdate = _dbContext.WorkOrders.SingleOrDefault(wo => wo.Id == id);
     if (workOrderToUpdate == null)
     {
         return NotFound();
     }
-    else if (id != workOrder.Id)
+    else if (id != updatedWorkOrder.Id)
     {
         return BadRequest();
     }
 
-    //These are the only properties that we want to make editable
-    workOrderToUpdate.Description = workOrder.Description;
-    workOrderToUpdate.UserProfileId = workOrder.UserProfileId;
+    // Update all properties based on updatedWorkOrder
+    _dbContext.Entry(workOrderToUpdate).CurrentValues.SetValues(updatedWorkOrder);
 
     _dbContext.SaveChanges();
 
     return NoContent();
 }
-[HttpPut("{id}/complete")]
-    //[Authorize]
-    public IActionResult UpDateAsComplete(WorkOrder workOrder, int id)
+
+[HttpPost("complete/{id}")]
+    [Authorize]
+    public IActionResult CompleteWorkOrder(int id)
     {
-        WorkOrder workOrderToUpdate = _dbContext.WorkOrders.SingleOrDefault(wo => wo.Id == id);
-        if (workOrderToUpdate == null)
+        WorkOrder workOrder = _dbContext.WorkOrders.SingleOrDefault(wo => wo.Id == id);
+        if (workOrder == null)
         {
             return NotFound();
         }
@@ -83,9 +83,10 @@ public IActionResult UpdateWorkOrder(WorkOrder workOrder, int id)
         {
             return BadRequest();
         }
-        workOrderToUpdate.DateCompleted = DateTime.Now;
+
+        workOrder.DateCompleted = DateTime.Now;
         _dbContext.SaveChanges();
-        return NoContent();
+        return Created($"/api/workorder/complete/{workOrder.Id}", workOrder);
     }
     [HttpDelete("{id}/delete")]
     [Authorize]
@@ -101,4 +102,27 @@ public IActionResult UpdateWorkOrder(WorkOrder workOrder, int id)
         return NoContent();
     } 
 
-}
+       [HttpGet("{id}")]
+        public async Task<ActionResult<WorkOrder>> GetWorkOrder(int id)
+        {
+            try
+            {
+                var workOrder = await _dbContext.WorkOrders
+                    .Include(wo => wo.Employee) // Include related data as needed
+                    .FirstOrDefaultAsync(wo => wo.Id == id);
+
+                if (workOrder == null)
+                {
+                    return NotFound(); // Work order with the specified ID was not found
+                }
+
+                return workOrder;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions as needed (e.g., log or return a custom error response)
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+
+    }}
+        

@@ -43,3 +43,19 @@ export const deleteAWorkOrder = (workOrderId) => {
         method: "Delete",
     });
 };
+// workOrderManager.js
+
+export const getWorkOrderById = async (id) => {
+  try {
+    const response = await fetch(`/api/workorder/${id}`);
+
+    if (!response.ok) {
+      throw new Error(`Error fetching work order by ID: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Error fetching work order by ID: ${error.message}`);
+  }
+};
+

@@ -33,7 +33,10 @@ export default function CreateWorkOrder({ loggedInUser }) {
       description,
       emergency,
       dateCreated,
-      dateCompleted,     
+      dateCompleted,
+      // Service: services.find((s) => s.id === serviceId), // Provide the Service object
+      // Employee: employees.find((e) => e.id === employeeId), // Provide the Employee object
+      // UserProfiles: [userProfiles.find((up) => up.id === userProfileId)] // Provide an array of UserProfile objects
     };
 
     createWorkOrder(newWorkOrder).then(() => {
@@ -123,16 +126,7 @@ export default function CreateWorkOrder({ loggedInUser }) {
             }}
           />
         </FormGroup>
-        <FormGroup>
-          <Label>Completion Date</Label>
-          <Input
-            type="datetime-local"
-            value={dateCompleted || ""}
-            onChange={(e) => {
-              setDateCompleted(e.target.value);
-            }}
-          />
-        </FormGroup>
+       
         <Button onClick={handleSubmit} color="primary">
           Submit
         </Button>

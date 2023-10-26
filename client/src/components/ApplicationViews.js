@@ -9,6 +9,7 @@ import WorkOrderList from "./workorders/WorkOrderList.js";
 import  CreateWorkOrder  from "./workorders/CreateWorkOrder.js";
 import CreateClient from "./client /CreateClient.js";
 import CreateEmployee from "./employee/CreateEmployee.js";
+import EditWorkOrder from "./workorders/EditWorkOrder.js";
 
 
 const text =
@@ -45,6 +46,15 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         />
+        <Route
+  path="workorders/edit/:id"
+  element={
+    <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+      <EditWorkOrder />
+    </AuthorizedRoute>
+  }
+/>
+
     
       <Route
         path="employees"

@@ -1,49 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "reactstrap";
 import { Link } from "react-router-dom";
-import {
-  getIncompleteWorkOrders,
-  deleteAWorkOrder,
-  updateWorkOrder,
-  getAllWorkOrders,
-} from "../../managers/workOrderManager.js";
+import { getAllWorkOrders, deleteAWorkOrder } from "../../managers/workOrderManager.js";
+import { getEmployeeById } from "../../managers/employeeManager.js";
+import { getServicesById } from "../../managers/serviceManager.js";
 
 export default function WorkOrderList({ loggedInUser }) {
   const [workOrders, setWorkOrders] = useState([]);
   const [expandedDetails, setExpandedDetails] = useState(null);
   const [sortCriteria, setSortCriteria] = useState("description");
   const [sortOrder, setSortOrder] = useState("asc");
-  const [editingDetails, setEditingDetails] = useState(null);
-  const [editedDescription, setEditedDescription] = useState("");
+  const [employeeData, setEmployeeData] = useState({});
+  const [serviceData, setServiceData] = useState({});
+  const [clientData, setClientData] = useState({});
+
+  
 
   useEffect(() => {
-    // Define an async function to fetch work orders and handle updates
     const fetchWorkOrders = async () => {
       try {
-        const newWorkOrders = await getAllWorkOrders(); // Fetch new work orders
+        const newWorkOrders = await getAllWorkOrders();
 
-        // Update local storage and state with the new work orders
-        updateLocalStorage(newWorkOrders);
+        for (const workOrder of newWorkOrders) {
+          const employee = await getEmployeeById(workOrder.employeeId);
+          const service = await getServicesById(workOrder.serviceId);
+          setEmployeeData((prevData) => ({
+            ...prevData,
+            [workOrder.employeeId]: employee.name,
+          }));
+          setServiceData((prevData) => ({
+            ...prevData,
+            [workOrder.serviceId]: service.name,
+          }));
+        }
+
         setWorkOrders(newWorkOrders);
       } catch (error) {
         console.error("Error fetching work orders:", error);
       }
     };
 
-    // Call the async function to fetch and update work orders
     fetchWorkOrders();
   }, []);
-
-  const updateLocalStorage = (updatedWorkOrders) => {
-    localStorage.setItem("workOrders", JSON.stringify(updatedWorkOrders));
-  };
 
   const removeWorkOrder = (workOrderId) => {
     deleteAWorkOrder(workOrderId)
       .then(() => {
-        // Update local storage with the updated work orders
         const updatedWorkOrders = workOrders.filter((wo) => wo.id !== workOrderId);
-        updateLocalStorage(updatedWorkOrders);
         setWorkOrders(updatedWorkOrders);
       })
       .catch((error) => {
@@ -67,27 +70,6 @@ export default function WorkOrderList({ loggedInUser }) {
     });
 
     setWorkOrders(sortedWorkOrders);
-  };
-
-  const editWorkOrder = (workOrderId) => {
-    setEditingDetails(workOrderId);
-  };
-
-  const saveWorkOrder = (workOrderId, updatedWorkOrderData) => {
-    updateWorkOrder(workOrderId, updatedWorkOrderData)
-      .then(() => {
-        getIncompleteWorkOrders().then((updatedWorkOrders) => {
-          setWorkOrders(updatedWorkOrders);
-          setEditingDetails(null);
-        });
-      })
-      .catch((error) => {
-        console.error("Error updating work order:", error);
-      });
-  };
-
-  const cancelEdit = () => {
-    setEditingDetails(null);
   };
 
   return (
@@ -123,31 +105,16 @@ export default function WorkOrderList({ loggedInUser }) {
                 <Button onClick={() => toggleDetails(wo.id)} color="info">
                   View Details
                 </Button>
-                <Button onClick={() => editWorkOrder(wo.id)} color="primary">
-                  Edit
-                </Button>
+                <Link to={`edit/${wo.id}`}>
+                  <Button color="warning">Edit</Button>
+                </Link>
                 <Button onClick={() => removeWorkOrder(wo.id)} color="danger">
                   Delete
                 </Button>
-                {editingDetails === wo.id ? (
-                  <div>
-                    <input
-                      type="text"
-                      value={editedDescription}
-                      onChange={(e) => setEditedDescription(e.target.value)}
-                    />
-                    <Button onClick={() => saveWorkOrder(wo.id, { description: editedDescription })} color="success">
-                      Save
-                    </Button>
-                    <Button onClick={cancelEdit} color="secondary">
-                      Cancel
-                    </Button>
-                  </div>
-                ) : null}
                 {expandedDetails === wo.id && (
                   <div>
-                    <p>Service Name: {wo.serviceId}</p>
-                    <p>Employee: {wo.employeeId}</p>
+                    <p>Service Name: {serviceData[wo.serviceId]}</p>
+                    <p>Employee: {employeeData[wo.employeeId]}</p>
                     <p>Date Created: {new Date(wo.dateCreated).toLocaleDateString()}</p>
                     <p>Emergency: {wo.emergency ? "Yes" : "No"}</p>
                     <p>Status: {wo.dateCompleted ? "Complete" : "Incomplete"}</p>

@@ -234,9 +234,6 @@ namespace LeeboysWildlife.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("ClientId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -250,8 +247,6 @@ namespace LeeboysWildlife.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.HasIndex("IdentityUserId");
 
@@ -359,7 +354,7 @@ namespace LeeboysWildlife.Migrations
                         new
                         {
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-                            ConcurrencyStamp = "1f7c83b6-ec2d-40a8-a93d-48b1e17dc055",
+                            ConcurrencyStamp = "3a88d233-f4a8-466f-8332-a063e0d3dd9c",
                             Name = "Admin",
                             NormalizedName = "admin"
                         });
@@ -458,13 +453,13 @@ namespace LeeboysWildlife.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5a4a8b4c-48f0-45db-b9a6-625665f5ede1",
+                            ConcurrencyStamp = "8ecf5ef3-0c5a-4b68-881f-e3700eb033bb",
                             Email = "leeboyswildliferemoval@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEOM+I+l503QICSdUSA4nCrGY6VIKXE9mqLRp6Qit5tWiyfH6aDJf1LZAoUKEvSyImw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMZJaMj25jq0qD2QQ8AUvuKA0c2vGCHCerll8cnaki0UsHHJC0Nxi4tqmt5BxXXQ6A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "da44aa87-d4cc-46a8-bd5d-e43572890020",
+                            SecurityStamp = "9a9d14d1-3e34-4fc4-9a2e-3798a9f52202",
                             TwoFactorEnabled = false,
                             UserName = "Leeboy"
                         });
@@ -582,10 +577,6 @@ namespace LeeboysWildlife.Migrations
 
             modelBuilder.Entity("LeeboysWildlife.Models.UserProfile", b =>
                 {
-                    b.HasOne("LeeboysWildlife.Models.Client", null)
-                        .WithMany("UserProfiles")
-                        .HasForeignKey("ClientId");
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId")
@@ -674,11 +665,6 @@ namespace LeeboysWildlife.Migrations
                         .HasForeignKey("WorkOrdersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LeeboysWildlife.Models.Client", b =>
-                {
-                    b.Navigation("UserProfiles");
                 });
 
             modelBuilder.Entity("LeeboysWildlife.Models.Service", b =>

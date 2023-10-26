@@ -214,8 +214,7 @@ namespace LeeboysWildlife.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
-                    IdentityUserId = table.Column<string>(type: "text", nullable: false),
-                    ClientId = table.Column<int>(type: "integer", nullable: true)
+                    IdentityUserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -226,11 +225,6 @@ namespace LeeboysWildlife.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserProfiles_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -308,12 +302,12 @@ namespace LeeboysWildlife.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "1f7c83b6-ec2d-40a8-a93d-48b1e17dc055", "Admin", "admin" });
+                values: new object[] { "c3aaeb97-d2ba-4a53-a521-4eea61e59b35", "3a88d233-f4a8-466f-8332-a063e0d3dd9c", "Admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "5a4a8b4c-48f0-45db-b9a6-625665f5ede1", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEOM+I+l503QICSdUSA4nCrGY6VIKXE9mqLRp6Qit5tWiyfH6aDJf1LZAoUKEvSyImw==", null, false, "da44aa87-d4cc-46a8-bd5d-e43572890020", false, "Leeboy" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "8ecf5ef3-0c5a-4b68-881f-e3700eb033bb", "leeboyswildliferemoval@gmail.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEMZJaMj25jq0qD2QQ8AUvuKA0c2vGCHCerll8cnaki0UsHHJC0Nxi4tqmt5BxXXQ6A==", null, false, "9a9d14d1-3e34-4fc4-9a2e-3798a9f52202", false, "Leeboy" });
 
             migrationBuilder.InsertData(
                 table: "Clients",
@@ -360,8 +354,8 @@ namespace LeeboysWildlife.Migrations
 
             migrationBuilder.InsertData(
                 table: "UserProfiles",
-                columns: new[] { "Id", "Address", "ClientId", "FirstName", "IdentityUserId", "LastName" },
-                values: new object[] { 1, "Western Wisconsin", null, "Mike", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Lee" });
+                columns: new[] { "Id", "Address", "FirstName", "IdentityUserId", "LastName" },
+                values: new object[] { 1, "Western Wisconsin", "Mike", "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", "Lee" });
 
             migrationBuilder.InsertData(
                 table: "WorkOrders",
@@ -415,11 +409,6 @@ namespace LeeboysWildlife.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserProfiles_ClientId",
-                table: "UserProfiles",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserProfiles_IdentityUserId",
                 table: "UserProfiles",
                 column: "IdentityUserId");
@@ -458,6 +447,9 @@ namespace LeeboysWildlife.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Clients");
+
+            migrationBuilder.DropTable(
                 name: "ServiceTypes");
 
             migrationBuilder.DropTable(
@@ -474,9 +466,6 @@ namespace LeeboysWildlife.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Employees");
