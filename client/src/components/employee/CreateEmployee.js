@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { createEmployee } from "../../managers/employeeManager.js";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function CreateEmployee() {
   const [employeeData, setEmployeeData] = useState({
@@ -12,25 +13,37 @@ export default function CreateEmployee() {
     Active: true,
   });
 
+  const navigate = useNavigate(); // Get the navigate function
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
     setEmployeeData({ ...employeeData, [name]: newValue });
   };
 
-  const handleCreateEmployee = () => {
-    // Convert employeeData to a plain JSON-serializable object
-    const employeeDataJSON = {
-      Name: employeeData.Name,
-      Address: employeeData.Address,
-      Email: employeeData.Email,
-      Telephone: employeeData.Telephone,
-      Pay: employeeData.Pay,
-      Active: employeeData.Active,
-    };
+  const handleCreateEmployee = async () => {
+    try {
+      const employeeDataJSON = {
+        Name: employeeData.Name,
+        Address: employeeData.Address,
+        Email: employeeData.Email,
+        Telephone: employeeData.Telephone,
+        Pay: employeeData.Pay,
+        Active: employeeData.Active,
+      };
 
-    // Now you can pass employeeDataJSON to the createEmployee function
-    createEmployee(employeeDataJSON);
+      // Attempt to create the employee
+      const createdEmployee = await createEmployee(employeeDataJSON);
+
+      // Provide feedback to the user (e.g., show a success message)
+      console.log("Employee created successfully:", createdEmployee);
+
+      // Navigate back to the employee list page
+      navigate("/employees"); // Adjust the path to match your employee list route
+    } catch (error) {
+      // Handle errors (e.g., show an error message to the user)
+      console.error("Error creating employee:", error);
+    }
   };
 
   return (

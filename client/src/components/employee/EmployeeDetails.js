@@ -4,9 +4,13 @@ import { getEmployeeById, deactivateEmployee } from "../../managers/employeeMana
 
 export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
   const [employee, setEmployee] = useState(null);
+  const [isActive, setIsActive] = useState(true); // Add a state for "Active" status
 
   const getEmployeeDetails = (id) => {
-    getEmployeeById(id).then(setEmployee);
+    getEmployeeById(id).then((data) => {
+      setEmployee(data);
+      setIsActive(data.active); // Initialize "isActive" state
+    });
   };
 
   useEffect(() => {
@@ -19,8 +23,9 @@ export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
     if (employee) {
       deactivateEmployee(employee.id)
         .then(() => {
-          // Handle successful deactivation, e.g., show a success message.
-          // You might want to update the local state to reflect the deactivation.
+          // Handle successful deactivation
+          // Update the local state to reflect the deactivation
+          setIsActive(false);
         })
         .catch((error) => {
           console.error("Error deactivating employee:", error);
@@ -28,7 +33,6 @@ export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
         });
     }
   };
-  
 
   if (!employee) {
     return (
@@ -51,7 +55,7 @@ export default function EmployeeDetails({ detailsEmployeeId, onCloseClick }) {
           <p>Email: {employee.email}</p>
           <p>Phone: {employee.telephone}</p>
           <p>Pay: {employee.pay}</p>
-          <p>Active: {employee.active ? "Yes" : "No"}</p>
+          <p>Active: {isActive ? "Yes" : "No"}</p> {/* Use the "isActive" state */}
           <Button color="danger" onClick={handleDeactivateClick}>
             Deactivate
           </Button>

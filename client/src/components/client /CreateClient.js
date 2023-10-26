@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { createClient } from "../../managers/clientManager.js";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function CreateClient() {
   const [clientData, setClientData] = useState({
@@ -11,24 +12,36 @@ export default function CreateClient() {
     Active: true,
   });
 
+  const navigate = useNavigate(); // Get the navigate function
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === "checkbox" ? checked : value;
     setClientData({ ...clientData, [name]: newValue });
   };
 
-  const handleCreateClient = () => {
-    // Convert clientData to a plain JSON-serializable object
-    const clientDataJSON = {
-      Name: clientData.Name,
-      Address: clientData.Address,
-      Email: clientData.Email,
-      Telephone: clientData.Telephone,
-      Active: clientData.Active,
-    };
+  const handleCreateClient = async () => {
+    try {
+      const clientDataJSON = {
+        Name: clientData.Name,
+        Address: clientData.Address,
+        Email: clientData.Email,
+        Telephone: clientData.Telephone,
+        Active: clientData.Active,
+      };
 
-    // Now you can pass clientDataJSON to the createClient function
-    createClient(clientDataJSON);
+      // Attempt to create the client
+      const createdClient = await createClient(clientDataJSON);
+
+      // Provide feedback to the user (e.g., show a success message)
+      console.log("Client created successfully:", createdClient);
+
+      // Navigate back to the client list page
+      navigate("/clients"); // Adjust the path to match your client list route
+    } catch (error) {
+      // Handle errors (e.g., show an error message to the user)
+      console.error("Error creating client:", error);
+    }
   };
 
   return (
@@ -56,16 +69,15 @@ export default function CreateClient() {
           />
         </FormGroup>
         <FormGroup>
-  <Label for="Email">Email:</Label> {/* Corrected 'for' attribute */}
-  <Input
-    type="text"
-    name="Email"
-    id="Email"
-    value={clientData.Email}
-    onChange={handleInputChange}
-  />
-</FormGroup>
-
+          <Label for="Email">Email:</Label>
+          <Input
+            type="text"
+            name="Email"
+            id="Email"
+            value={clientData.Email}
+            onChange={handleInputChange}
+          />
+        </FormGroup>
         <FormGroup>
           <Label for="Telephone">Telephone:</Label>
           <Input
