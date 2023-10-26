@@ -41,5 +41,13 @@ public IActionResult GetById(int id)
 
     return Ok(employee);
 }
+    [HttpPost]
+[Authorize]
+public IActionResult CreateEmployee(Employee employee)
+{
+    _dbContext.Employees.Add(employee);
+    _dbContext.SaveChanges();
+    return Created($"/api/employee/{employee.Id}", employee);
 }
+    }
 }

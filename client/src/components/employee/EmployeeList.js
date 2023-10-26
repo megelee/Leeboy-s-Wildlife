@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllEmployees } from "../../managers/employeeManager.js";
 import EmployeeCard from "./EmployeeCard.js";
 import EmployeeDetails from "./EmployeeDetails.js";
+import { Link } from "react-router-dom";
 
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
@@ -27,6 +28,9 @@ export default function EmployeeList() {
   return (
     <div>
       <h2>Employees</h2>
+      <Link to="/create-employee" className="create-employee-link">
+        New Employee
+      </Link>
       <div className="employee-list">
         {employees.map((employee) => (
           <EmployeeCard
