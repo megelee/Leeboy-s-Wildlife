@@ -1,0 +1,91 @@
+body {
+    background-image: url('/Users/meganlee/workspace/csharp/LeeboysWildlife/client/src/Images/Tree.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+  
+.login-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh; 
+  }
+  
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+  }
+  
+  .homepage-image {
+    position: absolute;
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 30%; 
+    z-index: 2;
+  }
+  
+  .container {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 250px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    width: 900px;
+    
+  }
+  .register-container {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 250px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    width: 900px;
+  }
+  
+  h3 {
+    color: rgb(150, 0, 0);
+  }
+  
+  
+  FormGroup {
+    margin-bottom: 20px;
+  }
+  
+  Label {
+    color: hsl(0, 92%, 26%);
+  }
+  
+  Input {
+    background-color: black;
+    border: 2px solid red;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  Input.invalid {
+    border-color: red;
+  }
+  
+  /* FormFeedback {
+    color: red;
+  } */
+  
+  Button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  Button:hover {
+    background-color: darkred;
+  }
+  

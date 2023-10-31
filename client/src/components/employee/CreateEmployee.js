@@ -112,7 +112,7 @@ export default function CreateEmployee() {
             Active
           </Label>
         </FormGroup>
-        <Button color="primary" onClick={handleCreateEmployee}>
+        <Button  onClick={handleCreateEmployee}>
           Create Employee
         </Button>
       </Form>

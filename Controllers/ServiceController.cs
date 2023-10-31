@@ -17,7 +17,7 @@ namespace LeeboysWildlife.Controllers
         }
 
 [HttpGet]
-[Authorize]
+// [Authorize]
 public IActionResult Get()
 {
     // Get all of the services from the database
@@ -28,7 +28,7 @@ public IActionResult Get()
 
         
 [HttpGet("{id}")]
-[Authorize]
+// [Authorize]
 public IActionResult GetById(int id)
 {
     // Get the service

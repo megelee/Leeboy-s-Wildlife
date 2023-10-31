@@ -5,7 +5,9 @@ import { createWorkOrder } from "../../managers/workOrderManager.js";
 import { getAllClients } from "../../managers/clientManager.js";
 import { getAllServices } from "../../managers/serviceManager.js";
 import { getAllEmployees } from "../../managers/employeeManager.js";
-import {  getUserProfiles } from "../../managers/userProfileManager.js"; // Import function to fetch UserProfiles
+import {  getUserProfiles } from "../../managers/userProfileManager.js"; 
+import "./CreateWorkOrder.css";
+
 
 export default function CreateWorkOrder({ loggedInUser }) {
   const [userProfileId, setUserProfileId] = useState(0);
@@ -127,7 +129,7 @@ export default function CreateWorkOrder({ loggedInUser }) {
           />
         </FormGroup>
        
-        <Button onClick={handleSubmit} color="primary">
+        <Button onClick={handleSubmit} >
           Submit
         </Button>
       </Form>

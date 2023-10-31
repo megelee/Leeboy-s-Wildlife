@@ -1,0 +1,100 @@
+.homepage {
+    padding: 20px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    /* background-color: rgba(15, 14, 14, 0.6); */
+
+  }
+  
+  .section {
+    font-size: 1.1rem;
+    padding: 20px;
+  }
+  
+  .text {
+    font-size: 1.2rem;
+    width: 100%;
+    height: 300px;
+    background-color: rgba(255, 255, 255);
+    border: 1px solid #8a8989; /* Border color */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center text within the box horizontally */
+  }
+  
+  
+  .hours-of-operation {
+    font-size: 1.2rem;
+    width: 90%;
+    height: 300px;
+    background-color: rgba(255, 255, 255);
+    border: 1px solid #8a8989; /* Border color */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+
+  }
+  
+  .contact-image {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    width: 90%;
+    height: 80%;
+    margin: 20px 0;
+    background-color: rgba(255, 255, 255);
+    border: 1px solid #8a8989; /* Border color */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+
+  }
+  
+  .areas-covered {
+    font-size: 1.2rem;
+    width: 90%;
+    height: 400px;
+    background-color: rgba(255, 255, 255);
+    border: 1px solid #8a8989; /* Border color */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+
+  }
+  .areas-covered strong {
+    margin-bottom: 10px; /* Adjust the value as needed */
+  }
+  
+ 
+  
+  .areas-covered ul {
+    list-style: none;
+    padding: 125px;
+    margin-left: -100px; 
+  }
+  
+  .areas-covered ul li {
+    font-size: 1.1rem;
+    margin: 8px 0;
+    margin-left: 20px; 
+  }
+  .areas-image {
+    width: 50%; /* Adjust the width as needed to make it smaller */
+    height: auto; /* To maintain aspect ratio */
+    margin: -60px ;
+    
+  }
+  

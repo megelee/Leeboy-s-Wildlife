@@ -10,26 +10,61 @@ import  CreateWorkOrder  from "./workorders/CreateWorkOrder.js";
 import CreateClient from "./client /CreateClient.js";
 import CreateEmployee from "./employee/CreateEmployee.js";
 import EditWorkOrder from "./workorders/EditWorkOrder.js";
+import "./ApplicationViews.css"
+import contact from "/Users/meganlee/workspace/csharp/LeeboysWildlife/client/src/Images/Contact.png";
+import covered from "/Users/meganlee/workspace/csharp/LeeboysWildlife/client/src/Images/Counties.png";
 
 
 const text =
-  "Leeboy's Wildlife Removal specializes in providing humane wildlife removal services. We are dedicated to safely and ethically removing wildlife, such as raccoons, squirrels, and birds, from residential and commercial properties. Our mission is to protect both your property and the well-being of the wildlife we encounter. With our experienced team, we strive to ensure a safe and harmonious coexistence between humans and wildlife.";
+  "Locally owned and operated. Leeboy's Wildlife Removal specializes in providing humane wildlife removal services. We are dedicated to safely and ethically removing wildlife, such as raccoons, squirrels, and birds, from residential and commercial properties. Our mission is to protect both your property and the well-being of the wildlife we encounter. With our experienced team, we strive to ensure a safe and harmonious coexistence between humans and wildlife.";
 
-const Home = () => {
-  return (
-    <div className="homepage">
-      <p className="text">"{text}"</p>
-    </div>
-  );
-};
+  const Home = () => {
+    return (
+      <div className="homepage">
+        <div className="section">
+          <p className="text">{text}</p>
+        </div>
+        <div className="section">
+          <p className="hours-of-operation">
+            <strong>Hours of Operation:</strong>
+          <ul>
+            <ul>Monday - Friday: 9:00 AM - 5:00 PM</ul>
+            <ul>Saturday: Closed</ul>
+            <ul>Sunday: Closed</ul>
+          </ul>
+          </p>
+        </div>
+        <div className="section">
+          <img className="contact-image" src={contact} alt="Login Image" />
+        </div>
+        <div className="section">
+          <div className="areas-covered">
+            <strong>Areas Covered:</strong>
+            <ul>
+              <li>Baron</li>
+              <li>Chippewa</li>
+              <li>Dunn</li>
+              <li>Eau Claire</li>
+              <li>Pepin</li>
+              <li>Pierce</li>
+              <li>Polk</li>
+              <li>St. Croix</li>
+            </ul>
+          <img className="areas-image" src={covered} alt="Covered Areas" />
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="services" element={<ServiceList />} />
       <Route path="login" element={<Login setLoggedInUser={setLoggedInUser} />} />
       <Route path="register" element={<Register setLoggedInUser={setLoggedInUser} />} />
-      <Route path="services" element={<ServiceList />} />
       <Route
     path="workorders"
     element={

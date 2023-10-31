@@ -2,6 +2,9 @@ import { useState } from "react";
 import { register } from "../../managers/authManager";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
+import "./Login.css";
+import image from "/Users/meganlee/workspace/csharp/LeeboysWildlife/client/src/Images/Logo.png";
+
 
 export default function Register({ setLoggedInUser }) {
   const [firstName, setFirstName] = useState("");
@@ -38,7 +41,10 @@ export default function Register({ setLoggedInUser }) {
   };
 
   return (
-    <div className="container" style={{ maxWidth: "500px" }}>
+    <div className="center-container">
+    <div className="register-container" style={{ maxWidth: "800px" }}>
+            <img className="homepage-image" src={image} alt="Login Image" />
+
       <h3>Sign Up</h3>
       <FormGroup>
         <Label>First Name</Label>
@@ -116,7 +122,7 @@ export default function Register({ setLoggedInUser }) {
         <FormFeedback>Passwords do not match!</FormFeedback>
       </FormGroup>
       <Button
-        color="primary"
+        color="dark red"
         onClick={handleSubmit}
         disabled={passwordMismatch}
       >
@@ -125,6 +131,7 @@ export default function Register({ setLoggedInUser }) {
       <p>
         Already signed up? Log in <Link to="/login">here</Link>
       </p>
+    </div>
     </div>
   );
 }

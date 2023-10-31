@@ -1,0 +1,74 @@
+Form {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255);
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 10px; /* Add rounded corners for the form */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    max-width: 1100px; /* Add a maximum width to limit the width of the form */
+    margin: 0 auto;
+   /* Center the form horizontally on the page */
+  }
+h2 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  Form {
+    margin-top: 20px;
+  }
+  
+  FormGroup {
+    margin-bottom: 20px;
+  }
+  
+  Label {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  
+  Input[type="text"],
+  Input[type="checkbox"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #8a8989;
+    border-radius: 5px;
+    color: #333;
+  }
+  
+  Input[type="select"] option:hover {
+    background-color: darkred; /* Change this color to your desired hover highlight color */
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #8a8989;
+    border-radius: 5px;
+    color: #333; /* Change this color to your desired text color for the selected option */
+  }
+
+  Input[type="checkbox"] {
+    width: auto;
+  }
+  
+  Button {
+    font-size: 16px;
+    background-color: #333 !important; /* Use !important to ensure the style takes precedence */
+    color: #fff !important; /* Use !important to ensure the style takes precedence */
+    border: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    margin-top: 25px;
+  }
+  
+  Button:hover {
+    background-color: darkred !important; /* Use !important to ensure the style takes precedence */
+    color: #fff !important; /* Use !important to ensure the style takes precedence */
+  }
+  
+  

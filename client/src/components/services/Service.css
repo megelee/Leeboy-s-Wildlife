@@ -1,0 +1,36 @@
+/* ServiceCard.css */
+
+/* Style for the entire ServiceCard */
+.card {
+    background-color: rgba(255, 255, 255);
+    color: #333;
+    border: 1px solid #8a8989; /* Border color */
+    border-radius: 10px; /* Border radius */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    transition: transform 0.2s;
+    width: 90%;
+    margin-left: 85px;
+    margin-top: 25px;
+    
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Hover effect */
+  }
+  
+  /* Style for the CardTitle (service name) */
+  .card-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  /* Style for the CardSubtitle (service description) */
+  .card-subtitle {
+    font-size: 16px;
+    color: #555; /* Darker text color for the description (#555 is a slightly lighter gray) */
+    margin-bottom: 0;
+  }
+  
+  /* You can adjust the color values (#333 and #555) as needed to achieve your desired text darkness. */
+  

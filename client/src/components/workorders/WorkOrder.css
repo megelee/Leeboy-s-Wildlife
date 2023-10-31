@@ -1,0 +1,108 @@
+.work-orders-container {
+    max-height: 900px; /* Adjust the height as needed */
+    overflow: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  
+ 
+.work-order-label {
+    font-size: 18px;
+    color: #333;
+    margin-right: 10px;
+  }
+  
+  .work-order-select {
+    font-size: 16px;
+    background-color: rgba(255, 255, 255);
+    border: 1px solid #8a8989;
+    border-radius: 10px; /* Border radius */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+
+    margin-right: 10px;
+    padding: 5px;
+    color: #333;
+  }
+  
+  .work-order-button, .work-order-link {
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    margin-top: 25px;
+  }
+  
+  /* Add hover styles for "Edit" and "View Details" buttons */
+  .work-order-button:hover, .work-order-link:hover {
+    background-color: darkred;
+  }
+  
+  /* Change the text color to white when hovering */
+  .work-order-button:hover, .work-order-link:hover {
+    color: #fff;
+  }
+  
+  .work-order-table {
+    width: 95%;
+    border: 1px solid #8a8989;
+    background-color: rgba(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    margin-top: 20px;
+    margin-left: 45px;
+  }
+  
+  .work-order-table tbody tr, .work-order-table thead tr {
+    border-bottom: 1px solid #8a8989;
+    background-color: transparent;
+  }
+  
+  .work-order-table tbody tr td, .work-order-table thead tr th {
+    vertical-align: top;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: transparent;
+  }
+  
+  .work-order-table thead tr th {
+    font-size: 18px;
+    color: #333;
+    text-align: left;
+  }
+  
+  .work-order-description, .work-order-date {
+    font-size: 16px;
+    color: #333;
+    padding: 10px;
+  }
+  
+  .work-order-actions {
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .work-order-details {
+    font-size: 16px;
+    color: #333;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Add margin to the "New Work Order" link to create space */
+  .work-order-link {
+    margin-right: 10px;
+  }

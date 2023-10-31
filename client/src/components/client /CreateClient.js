@@ -100,7 +100,7 @@ export default function CreateClient() {
             Active
           </Label>
         </FormGroup>
-        <Button color="primary" onClick={handleCreateClient}>
+        <Button  onClick={handleCreateClient}>
           Create Client
         </Button>
       </Form>

@@ -1,44 +1,46 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
-
-import {
-  Button,
-  Collapse,
-  Nav,
-  NavLink,
-  NavItem,
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-} from "reactstrap";
+import { Button, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from "reactstrap";
 import { logout } from "../managers/authManager";
+import logo from "/Users/meganlee/workspace/csharp/LeeboysWildlife/client/src/Images/Logo.png";
+import "./NavBar.css";
 
 export default function NavBar({ loggedInUser, setLoggedInUser }) {
   const [open, setOpen] = useState(false);
 
   const toggleNavbar = () => setOpen(!open);
 
+  const handleLogout = () => {
+    logout().then(() => {
+      setLoggedInUser(null);
+      setOpen(false); // Close the navbar after logout
+    });
+  };
+
   return (
     <div>
       <Navbar color="light" light fixed={true} expand="lg">
         <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
-          🦝Leeboy's Wildlife Removal
+          <img className="logo-image" src={logo} alt="Logo" />
         </NavbarBrand>
+        <Nav navbar>
+          <NavItem>
+            <NavLink tag={RRNavLink} to="/">
+              Home
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={RRNavLink} to="/services">
+              Services
+            </NavLink>
+          </NavItem>
+        </Nav>
+
         {loggedInUser ? (
           <>
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={open} navbar>
               <Nav navbar>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/">
-                    Home
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/services">
-                    Services
-                  </NavLink>
-                </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/workorders">
                     Work Orders
@@ -64,10 +66,8 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
               color="primary"
               onClick={(e) => {
                 e.preventDefault();
-                setOpen(false); // Remove this line
-                logout().then(() => {
-                  setLoggedInUser(null);
-                });
+                setOpen(false);
+                handleLogout();
               }}
             >
               Logout
@@ -86,3 +86,4 @@ export default function NavBar({ loggedInUser, setLoggedInUser }) {
     </div>
   );
 }
+

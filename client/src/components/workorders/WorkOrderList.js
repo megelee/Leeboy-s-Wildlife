@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getAllWorkOrders, deleteAWorkOrder } from "../../managers/workOrderManager.js";
 import { getEmployeeById } from "../../managers/employeeManager.js";
 import { getServicesById } from "../../managers/serviceManager.js";
+import "./WorkOrder.css";
 
 export default function WorkOrderList({ loggedInUser }) {
   const [workOrders, setWorkOrders] = useState([]);
@@ -13,8 +14,6 @@ export default function WorkOrderList({ loggedInUser }) {
   const [employeeData, setEmployeeData] = useState({});
   const [serviceData, setServiceData] = useState({});
   const [clientData, setClientData] = useState({});
-
-  
 
   useEffect(() => {
     const fetchWorkOrders = async () => {
@@ -74,45 +73,53 @@ export default function WorkOrderList({ loggedInUser }) {
 
   return (
     <>
+    <div className="work-orders-container">
       <h2>Work Orders</h2>
-      <div>
-        <label>Sort by:</label>
-        <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
-          <option value="description">Description</option>
-          <option value="dateCreated">Date Created</option>
-        </select>
-        <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
-        </select>
-        <button onClick={sortWorkOrders}>Sort</button>
+      <div className="controls-container">
+        <Link to="create" className="work-order-link">
+          New Work Order
+        </Link>
+        <div className="sort-controls">
+          <label className="work-order-label">Sort by:</label>
+          <select className="work-order-select" value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
+            <option value="description">Description</option>
+            <option value="dateCreated">Date Created</option>
+          </select>
+          <select className="work-order-select" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+          </select>
+          <button className="work-order-button" onClick={sortWorkOrders}>
+            Sort
+          </button>
+        </div>
       </div>
-      <Link to="create">New Work Order</Link>
-
-      <Table>
+      <Table className="work-order-table">
         <thead>
           <tr>
-            <th>Description</th>
-            <th>Date Submitted</th>
+            <th className="work-order-header">Description</th>
+            <th className="work-order-header">Date Submitted</th>
           </tr>
         </thead>
         <tbody>
           {workOrders.map((wo) => (
             <tr key={wo.id}>
-              <td>{wo.description}</td>
-              <td>{new Date(wo.dateCreated).toLocaleDateString()}</td>
-              <td>
-                <Button onClick={() => toggleDetails(wo.id)} color="info">
+              <td className="work-order-description">{wo.description}</td>
+              <td className="work-order-date">{new Date(wo.dateCreated).toLocaleDateString()}</td>
+              <td className="work-order-actions">
+                <Button className="work-order-button" onClick={() => toggleDetails(wo.id)} color="info">
                   View Details
                 </Button>
                 <Link to={`edit/${wo.id}`}>
-                  <Button color="warning">Edit</Button>
+                  <Button className="work-order-button" color="warning">
+                    Edit
+                  </Button>
                 </Link>
-                <Button onClick={() => removeWorkOrder(wo.id)} color="danger">
+                <Button className="work-order-button" onClick={() => removeWorkOrder(wo.id)} color="danger">
                   Delete
                 </Button>
                 {expandedDetails === wo.id && (
-                  <div>
+                  <div className="work-order-details">
                     <p>Service Name: {serviceData[wo.serviceId]}</p>
                     <p>Employee: {employeeData[wo.employeeId]}</p>
                     <p>Date Created: {new Date(wo.dateCreated).toLocaleDateString()}</p>
@@ -125,6 +132,7 @@ export default function WorkOrderList({ loggedInUser }) {
           ))}
         </tbody>
       </Table>
+    </div>
     </>
   );
-}
+                }  

@@ -1,0 +1,60 @@
+/* Navbar styles */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.7); /* Background with 70% opacity (adjust as needed) */
+    border-bottom: 1px solid hsl(0, 92%, 26);
+    width: 100%; /* Make the navbar 100% width of its container */
+    display: flex; /* Make it a flex container */
+    justify-content: space-between; /* Align items to the right */
+    align-items: center; /* Vertically center items */
+  }
+  
+
+  .navbar-light .navbar-toggler-icon {
+    background-color: rgb(150, 0, 0); /* Customize the navbar toggler icon color */
+  }
+  
+  /* Navbar link styles */
+  .navbar a.nav-link {
+    color: hsl(0, 92%, 26);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 15px; /* Add spacing between links */
+  }
+  
+  .navbar a.nav-link:hover {
+    color: darkred;
+  }
+  
+  /* Navbar brand styles (your logo) */
+  .navbar .navbar-brand {
+    margin-right: 20px; /* Add spacing to the right of the logo */
+  }
+  
+  /* Button styles for the "Logout" button */
+  .navbar .btn {
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 15px; /* Add spacing to the left of the button */
+  }
+  
+  .navbar .btn:hover {
+    background-color: darkred;
+  }
+  
+  /* Logo image styles */
+  .logo-image {
+    width: 70px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add spacing to the right of the logo image */
+  }
+  
+  /* For the "Login" link/button (if needed) */
+  .navbar .nav-item a {
+    color: hsl(0, 92%, 26);
+    text-transform: uppercase;
+  }
+  
+  /* You can customize these styles further as needed to match your login page's design. */
+  

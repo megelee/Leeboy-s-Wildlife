@@ -3,6 +3,8 @@ import { getAllClients } from "../../managers/clientManager.js";
 import ClientDetails from "./ClientDetails.js";
 import ClientCard from "./ClientCard.js";
 import { Link } from "react-router-dom";
+import "./ClientList.css";
+
 
 
 export default function ClientList() {
@@ -28,8 +30,9 @@ export default function ClientList() {
   return (
     <div>
       <h2>Clients</h2>
-      <Link to="/create-client">Create New Client</Link> {/* Add this link */}
-      <div className="client-list">
+      <Link to="/create-client" className="button create-client-link">
+  Create New Client
+</Link>      <div className="client-list">
         {clients.map((client) => (
           <ClientCard
             client={client}
